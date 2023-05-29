@@ -1,0 +1,23 @@
+{
+  "id": "preserve-inputs",
+  "title": "Preserve Inputs",
+  "description": "This tiny module prevents the foundry text editor from striping out non-text html tags.",
+  "authors": [
+    {
+      "name": "nevenall",
+      "url": "https://github.com/Nevenall",
+      "flags": {}
+    }
+  ],
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "10",
+    "verified": "10"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "url": "https://github.com/Nevenall/foundry-preserve-inputs",
+  "manifest": "https://raw.githubusercontent.com/Nevenall/foundry-preserve-inputs/master/module.json",
+  "download": "https://github.com/Nevenall/foundry-preserve-inputs/archive/main.zip"
+}

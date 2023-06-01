@@ -1,51 +1,63 @@
 import { Schema } from "./node_modules/prosemirror-model/dist/index.js"
 
-// Hooks.on('init', function () {
-//    ProseMirror.defaultSchema = new Schema({
-//       nodes: {
-//          ...ProseMirror.defaultSchema.nodes,
-//          input: {
-//             inline: true,
-//             group: "inline",
-//             atom: true,
-
-//             attrs: {
-//                type: {}
-//             },
-//             toDOM(node) {
-//                return ["input", { type: node.attrs.type }, 0]
-//             },
-//             parseDOM: [{ tag: "input", getAttrs(dom) { return { type: dom.getAttribute("type") } } }],
-//          },
-//       },
-//       marks: ProseMirror.defaultSchema.marks
-//    })
-// })
+Hooks.on('init', function () {
+   debugger
+   var schema = new Schema({
+      topNode: 'doc',
+      nodes: ProseMirror.defaultSchema.spec.nodes.append('input', {
+         inline: true,
+         group: "inline",
+         attrs: {
+            type: {}
+         },
+         toDOM(node) {
+            debugger
+            return ["input", { type: node.attrs.type }]
+         },
+         parseDOM: [{
+            tag: "input", getAttrs(dom) {
+               debugger
+               return { type: dom.getAttribute("type") }
+            }
+         }],
+      }),
+      marks: ProseMirror.defaultSchema.spec.marks
+   })
+   // todo - figure out where to stick schema
+   console.log(schema)
+   ProseMirror.defaultSchema = schema
+   // debugger
+})
 
 Hooks.on('createProseMirrorEditor', function (uuid, plugins, options) {
-   console.log('initializing preserve-inputs')
-   options.state.transformPastedHTML = false
+   console.log(options)
+   options.state.config.transformPastedHTML = false
 
-   options.state.config.schema = new Schema({
-      nodes: {
-         ...ProseMirror.defaultSchema.nodes,
-         input: {
-            inline: true,
-            group: "inline",
-            atom: true,
+   // var schema = new Schema({
+   //    nodes: {
+   //       ...ProseMirror.defaultSchema.nodes,
+   //       input: {
+   //          inline: true,
+   //          group: "inline",
+   //          attrs: {
+   //             type: {}
+   //          },
+   //          toDOM(node) {
+   //             debugger
+   //             return ["input", { type: node.attrs.type }]
+   //          },
+   //          parseDOM: [{
+   //             tag: "input", getAttrs(dom) {
+   //                debugger
+   //                return { type: dom.getAttribute("type") }
+   //             }
+   //          }],
+   //       }
+   //    },
+   //    marks: ProseMirror.defaultSchema.marks
+   // })
 
-            attrs: {
-               type: {}
-            },
-            toDOM(node) {
-               return ["input", { type: node.attrs.type }, 0]
-            },
-            parseDOM: [{ tag: "input", getAttrs(dom) { return { type: dom.getAttribute("type") } } }],
-         },
-      },
-      marks: ProseMirror.defaultSchema.marks
-   }) 
+   // options.state.config.schema = schema
 
-
-   debugger
+   // debugger
 })
